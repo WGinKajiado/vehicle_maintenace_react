@@ -1,38 +1,82 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import VehicleDashboard from "./VehicleDashboard";
 import Service from "./Service";
+import Login from "./Login";
+import Register from "./Register";
+import AuthContext from "./AuthContext";
+import { db } from "./firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore";
 
 function App() {
+  const { user, authReady } = useContext(AuthContext);
   const [vehicles, setVehicles] = useState([]);
 
-  // Load from localStorage
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("vehicles")) || [];
-    setVehicles(saved);
-  }, []);
+    if (!user) {
+      setVehicles([]);
+      return;
+    }
 
-  // Save to localStorage
-  useEffect(() => {
-    localStorage.setItem("vehicles", JSON.stringify(vehicles));
-  }, [vehicles]);
+    const vehiclesRef = collection(db, "users", user.uid, "vehicles");
+    const q = query(vehiclesRef, orderBy("createdAt", "desc"));
 
-  const addVehicle = (vehicle) => {
-    setVehicles([...vehicles, vehicle]);
-    localStorage.setItem(`services_${vehicle.id}`, JSON.stringify([])); // Initialize empty services for the new vehicle
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map((docSnap) => ({
+        id: docSnap.id,
+        ...docSnap.data(),
+      }));
+      setVehicles(items);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  // Don't render routes until auth is ready
+  if (!authReady) {
+    return <div>Loading...</div>;
+  }
+
+  const addVehicle = async (vehicle) => {
+    if (!user) return;
+    const vehiclesRef = collection(db, "users", user.uid, "vehicles");
+    await addDoc(vehiclesRef, {
+      ...vehicle,
+      createdAt: serverTimestamp(),
+      lastServiceDate: "-",
+      lastServiceMileage: "-",
+      upcomingServiceDate: "-",
+      upcomingServiceMileage: "-",
+    });
   };
 
-  const updateVehicle = (updatedVehicle) => {
-    setVehicles((prev) =>
-      prev.map((v) => (v.id === updatedVehicle.id ? updatedVehicle : v)),
-    );
+  const updateVehicle = async (updatedVehicle) => {
+    if (!user) return;
+    const { id, createdAt, lastServiceDate, lastServiceMileage, upcomingServiceDate, upcomingServiceMileage, ...payload } = updatedVehicle;
+    await updateDoc(doc(db, "users", user.uid, "vehicles", id), payload);
   };
 
-  const deleteVehicle = (id) => { 
+  const deleteVehicle = async (id) => { 
     if (!confirm("Delete this vehicle and all its service records?")) return;
+    if (!user) return;
 
-    setVehicles(vehicles.filter((v) => v.id !== id)); // Delete vehicle and its services
-    localStorage.removeItem(`services_${id}`); // Remove associated services from localStorage
+    const batch = writeBatch(db);
+    const servicesRef = collection(db, "users", user.uid, "vehicles", id, "services");
+    const servicesSnap = await getDocs(servicesRef);
+    servicesSnap.forEach((docSnap) => batch.delete(docSnap.ref));
+    batch.delete(doc(db, "users", user.uid, "vehicles", id));
+    await batch.commit();
   };
 
   return (
@@ -40,16 +84,29 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={authReady ? (user ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />) : null}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/dashboard"
           element={
-            <VehicleDashboard
-              data={vehicles}
-              addItem={addVehicle}
-              updateItem={updateVehicle}
-              deleteItem={deleteVehicle}
-            />
+            user ? (
+              <VehicleDashboard
+                data={vehicles}
+                addItem={addVehicle}
+                updateItem={updateVehicle}
+                deleteItem={deleteVehicle}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
-        <Route path="/service/:id" element={<Service />} />
+        <Route
+          path="/service/:id"
+          element={user ? <Service /> : <Navigate to="/login" replace />}
+        />
       </Routes>
     </Router>
   );
