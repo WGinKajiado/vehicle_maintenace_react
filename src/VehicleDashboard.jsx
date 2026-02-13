@@ -50,7 +50,7 @@ const VehicleDashboard = ({ data, addItem, updateItem, deleteItem }) => {
   return (
     <div>
       <Header />
-      <div className="max-w-7xl mx-auto px-4 py-6 bg-white rounded-2xl shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 py-6 mt-14 bg-white rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold ml-4 mb-4">Your Vehicles</h2>
 
         <table
@@ -118,7 +118,7 @@ const VehicleDashboard = ({ data, addItem, updateItem, deleteItem }) => {
                     </button>
                     <button
                       onClick={() => handleEdit(v)}
-                      className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded"
+                      className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded"
                     >
                       Edit
                     </button>
@@ -143,35 +143,35 @@ const VehicleDashboard = ({ data, addItem, updateItem, deleteItem }) => {
           placeholder="Name"
           value={vehicle.name}
           onChange={handleChange}
-          className="border border-gray-300 hover:border-black m-2 px-2"
+          className="border border-gray-400 hover:border-black m-2 px-2"
         />
         <input
           name="make"
           placeholder="Make"
           value={vehicle.make}
           onChange={handleChange}
-          className="border border-gray-300 hover:border-black m-2 px-2"
+          className="border border-gray-400 hover:border-black m-2 px-2"
         />
         <input
           name="model"
           placeholder="Model"
           value={vehicle.model}
           onChange={handleChange}
-          className="border border-gray-300 hover:border-black m-2 px-2"
+          className="border border-gray-400 hover:border-black m-2 px-2"
         />
         <input
           name="year"
           placeholder="Year of manufacture"
           value={vehicle.year}
           onChange={handleChange}
-          className="border border-gray-300 hover:border-black m-2 px-2"
+          className="border border-gray-400 hover:border-black m-2 px-2"
         />
         <input
           name="registrationNumber"
           placeholder="Registration"
           value={vehicle.registrationNumber}
           onChange={handleChange}
-          className="border border-gray-300 hover:border-black m-2 px-2"
+          className="border border-gray-400 hover:border-black m-2 px-2"
         />
 
         <div className="flex gap-2">
@@ -179,13 +179,13 @@ const VehicleDashboard = ({ data, addItem, updateItem, deleteItem }) => {
             <>
               <button
                 onClick={handleUpdate}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded"
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded"
               >
                 Update Vehicle
               </button>
               <button
                 onClick={handleCancel}
-                className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1 px-3 rounded"
+                className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-1 px-3 rounded"
               >
                 Cancel
               </button>

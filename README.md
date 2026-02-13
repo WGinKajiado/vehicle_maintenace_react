@@ -1,16 +1,33 @@
-# React + Vite
+# Vehicle Maintenance Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for tracking and managing vehicle maintenance records. Built with React, Firebase, and Tailwind CSS, this application allows users to log service records, track upcoming maintenance, and maintain a comprehensive history of their vehicle maintenance activities.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**: Secure email/password registration and login with Firebase Auth
+- **Vehicle Management**: Add, edit, and delete vehicles
+- **Service Records**: Create and manage detailed service records for each vehicle including:
+  - Service date and mileage
+  - Cost of service
+  - Work done and parts replaced
+  - Next scheduled service date and mileage
+  - Additional notes
+- **Service Summary**: Automatic tracking of last service date/mileage and upcoming service dates/mileage
+- **Responsive Design**: Mobile-friendly interface with Tailwind CSS styling
 
-## React Compiler
+## Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+![image](https://github.com/WGinKajiado/vehicle_maintenance_react/blob/main/src/assets/screenshot.jpg?raw=true)# index.html
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React
+- **Styling**: Tailwind CSS
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Auth
+
+---
+### By Kariuki W
+
+### Live Release
+Live  : <a href="https://vehicle-maintenace-react.vercel.app/">View Here</a>

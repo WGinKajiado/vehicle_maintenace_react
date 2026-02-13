@@ -190,7 +190,7 @@ const Service = () => {
       <div className="max-w-7xl mx-auto">
         <button
           onClick={() => navigate("/dashboard")}
-          className="mb-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded"
+          className="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
         >
           Back to Vehicles
         </button>
@@ -215,7 +215,7 @@ const Service = () => {
             )}
           </div>
 
-          <div className="border-t pt-4 mb-2">
+          <div className="pt-4 mb-2">
             <h3 className="ml-2 text-lg font-semibold">Service</h3>
             <input
               type="date"
@@ -223,7 +223,7 @@ const Service = () => {
               value={service.date}
               onChange={handleChange}
               required
-              className="border border-gray-300 hover:border-black m-2 px-2"
+              className="border border-gray-400 hover:border-black m-2 px-2"
             />
             <input
               type="number"
@@ -236,7 +236,7 @@ const Service = () => {
               value={service.mileage}
               onChange={handleChange}
               required
-              className="border border-gray-300 hover:border-black m-2 px-4"
+              className="border border-gray-400 hover:border-black m-2 px-4"
             />
             <input
               type="number"
@@ -245,10 +245,10 @@ const Service = () => {
               value={service.cost}
               onChange={handleChange}
               required
-              className="border border-gray-300 hover:border-black m-2 px-2"
+              className="border border-gray-400 hover:border-black m-2 px-2"
             />
 
-            <h3 className="ml-2 text-lg font-semibold">Work Done</h3>
+            <h3 className="mt-2 ml-2 text-lg font-semibold">Work Done</h3>
             <textarea
               name="workDone"
               placeholder="Work Done / Parts Replaced"
@@ -256,17 +256,17 @@ const Service = () => {
               onChange={handleChange}
               required
               rows="3"
-              className="border border-gray-300 hover:border-black m-2 px-2 w-full box-border"
+              className="border border-gray-400 hover:border-black m-2 px-2 w-full box-border"
             />
 
-            <h3 className="ml-2 text-lg font-semibold">Next Service Due</h3>
+            <h3 className="mt-2 ml-2 text-lg font-semibold">Next Service Due</h3>
             <input
               type="date"
               name="nextServiceDate"
               value={service.nextServiceDate}
               onChange={handleChange}
               required
-              className="border border-gray-300 hover:border-black m-2 px-2"
+              className="border border-gray-400 hover:border-black m-2 px-2"
             />
             <input
               type="number"
@@ -275,17 +275,17 @@ const Service = () => {
               value={service.nextServiceMileage}
               onChange={handleChange}
               required
-              className="border border-gray-300 hover:border-black m-2 px-2"
+              className="border border-gray-400 hover:border-black m-2 px-2"
             />
 
-            <h3 className="ml-2 text-lg font-semibold">Notes</h3>
+            <h3 className="mt-2 ml-2 text-lg font-semibold">Notes</h3>
             <textarea
               name="notes"
               placeholder="Notes"
               value={service.notes}
               onChange={handleChange}
               rows="3"
-              className="border border-gray-300 hover:border-black m-2 px-2 w-full box-border"
+              className="border border-gray-400 hover:border-black m-2 px-2 w-full box-border"
             />
           </div>
 
@@ -313,13 +313,13 @@ const Service = () => {
 
         <table border="1" cellPadding="5" className="w-full text-center border-collapse-separate" style={{ borderCollapse: "separate", borderSpacing: "0 0.75rem" }}>
           <tr className="bg-gray-200">
-            <th className="px-4 py-2 border border-gray-300">Date</th>
-            <th className="px-4 py-2 border border-gray-300">Mileage KM</th>
-            <th className="px-4 py-2 border border-gray-300">Cost KSh</th>
-            <th className="px-4 py-2 border border-gray-300">Work Done</th>
-            <th className="px-4 py-2 border border-gray-300">Next Service</th>
-            <th className="px-4 py-2 border border-gray-300">Notes</th>
-            <th className="px-4 py-2 border border-gray-300">Actions</th>
+            <th className="px-4 py-2 border border-gray-400">Date</th>
+            <th className="px-4 py-2 border border-gray-400">Mileage KM</th>
+            <th className="px-4 py-2 border border-gray-400">Cost KSh</th>
+            <th className="px-4 py-2 border border-gray-400">Work Done</th>
+            <th className="px-4 py-2 border border-gray-400">Next Service</th>
+            <th className="px-4 py-2 border border-gray-400">Notes</th>
+            {/* <th className="px-4 py-2 border border-gray-400">Actions</th> */}
           </tr>
 
           <tbody>

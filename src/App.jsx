@@ -18,6 +18,7 @@ import {
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
+import image from "./assets/Dashboard.jpg";
 
 function App() {
   const { user, authReady } = useContext(AuthContext);
@@ -80,14 +81,15 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={authReady ? (user ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />) : null}
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <div style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${image})`, backgroundSize: "cover", minHeight: "100vh" }}>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={authReady ? (user ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />) : null} // Redirect based on auth state once ready
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         <Route
           path="/dashboard"
           element={
@@ -99,7 +101,7 @@ function App() {
                 deleteItem={deleteVehicle}
               />
             ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/login" replace /> // Redirect to login if not authenticated
             )
           }
         />
@@ -109,6 +111,7 @@ function App() {
         />
       </Routes>
     </Router>
+    </div>
   );
 }
 
