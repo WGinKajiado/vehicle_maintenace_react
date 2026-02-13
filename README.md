@@ -30,4 +30,4 @@ A modern web application for tracking and managing vehicle maintenance records. 
 ### By Kariuki W
 
 ### Live Release
-Live  : <a href="https://vehicle-maintenace-react.vercel.app/">View Here</a>
+Live  : <a href="https://vehicle-maintenance-react.vercel.app/">View Here</a>
